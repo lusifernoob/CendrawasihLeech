@@ -43,6 +43,8 @@ def direct_link_generator(text_url: str):
         return osdn(text_url)
     elif 'github.com' in text_url:
         return github(text_url)
+    elif 'mxplayer.in' in text_url
+       return mxplayer(text_url)
     elif 'racaty.net' in text_url:
         return racaty(text_url)
     elif 'letsupload.io' in text_url:
@@ -320,6 +322,17 @@ def github(url: str) -> str:
         return dl_url
     except KeyError:
         raise DirectDownloadLinkException("`Error: Can't extract the link`\n")
+
+def mxplayer(url: str) -> str:
+    """ mxplayer direct links generator """
+    try:
+        text_url = re.findall(r'\bhttps?://.*mxplayer\.in\S+', url)[0]
+    except IndexError:
+        raise DirectDownloadLinkException("`No mxplayer links found`\n")
+    page = BeautifulSoup(requests.get(text_url).content, 'lxml')
+    info = page.find('a', {'aria-label': 'Download file'})
+    dl_url = info.get('href')
+    return dl_url
 
 def racaty(url: str) -> str:
     dl_url = ''
