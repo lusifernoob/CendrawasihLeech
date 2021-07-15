@@ -43,7 +43,7 @@ def direct_link_generator(text_url: str):
         return osdn(text_url)
     elif 'github.com' in text_url:
         return github(text_url)
-    elif 'mxplayer.in' in text_url
+    elif 'mxplayer.in' in text_url:
        return mxplayer(text_url)
     elif 'racaty.net' in text_url:
         return racaty(text_url)
